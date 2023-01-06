@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <div class="register-box">
-            <h2 class="register-title">
+        <div class="register-box" ref="registerBox">
+            <h2 class="register-title" @click="toRegister">
                 <span>没有账号，去</span>注册
             </h2>
             <div class="input-box">
@@ -11,9 +11,9 @@
             </div>
             <button>注册</button>
         </div>
-        <div class="login-box slide-up">
+        <div class="login-box slide-up" ref="loginBox">
             <div class="center">
-                <h2 class="login-title">
+                <h2 class="login-title" @click="toLogin">
                     <span>已有账号，去</span>登录
                 </h2>
                 <div class="input-box">
@@ -28,7 +28,17 @@
 
 <script>
 export default {
-    name: "Login2"
+    name: "Login2",
+    methods: {
+        toRegister() {
+            this.$refs.registerBox.classList.remove("slide-up");
+            this.$refs.loginBox.classList.add("slide-up")
+        },
+        toLogin() {
+            this.$refs.registerBox.classList.add("slide-up")
+            this.$refs.loginBox.classList.remove("slide-up")
+        }
+    }
 }
 </script>
 
@@ -39,6 +49,7 @@ export default {
     border-radius: 15px;
     overflow: hidden;
     position: relative;
+    box-shadow: 5px 5px 5px #75a297;
 }
 .container::after {
     content: "";
@@ -56,7 +67,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: .3s ease;
+    transition: .5s ease;
 }
 .register-title,
 .login-title {
@@ -86,7 +97,7 @@ export default {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 12px;
-    padding: 8px 0;
+    padding: 20px 0;
     text-indent: 15px;
     outline: none;
 }
@@ -125,7 +136,7 @@ export default {
     top: 20%;
     z-index: 2;
     background-color: #fff;
-    transition: .3s ease;
+    transition: .5s ease;
 }
 .login-box::before {
     content: "";
@@ -145,11 +156,12 @@ export default {
     left: 50%;
     top: 40%;
     transform: translate(-50%, -50%);
+    transition: .1s ease;
 }
 .login-title {
     color: #000;
 }
-.login-box  .input-box {
+.login-box .input-box {
     border: 1px solid rgba(0, 0, 0, .1);
 }
 .login-box button {
@@ -157,13 +169,34 @@ export default {
 }
 .login-box.slide-up {
     top: 90%;
+    transition: .5s ease;
 }
 .login-box.slide-up .center {
     top: 10%;
     transform: translate(-50%, 0%);
 }
-.login-box.slide-up .login-title {
+.login-box.slide-up .login-title,
+.register-box.slide-up .register-title {
     font-size: 16px;
     cursor: pointer;
+}
+.login-box.slide-up .login-title span,
+.register-box.slide-up .register-title span {
+    margin-right: 5px;
+    display: inline-block;
+}
+.login-box.slide-up .input-box,
+.login-box.slide-up button,
+.register-box.slide-up .input-box,
+.register-box.slide-up button {
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+}
+
+.register-box.slide-up {
+    top: 6%;
+    transform: translate(-50%, 0%);
+    transition: .5s ease;
 }
 </style>

@@ -12,7 +12,7 @@ export default {
     name: 'App',
     components: {
         // Login,
-        Login2
+        Login2,
     }
 }
 </script>
